@@ -16,8 +16,8 @@
   <p id="hasil"></p>
 
   <div id="kandungan" style="display:none;">
-    <img src="Try decode me.png" alt="try to decode me" style="max-width:500px; width:100%;"><br>
-    <a href="Try decode me.png" download>Download gambar</a>
+    <img src="gambar.png" alt="try to decode me" style="max-width:500px; width:100%;"><br>
+    <a href="gambar.png" download="teka-teki.png">Download gambar</a>
 
     <p>
       Hint:<br>
@@ -26,15 +26,41 @@
       Base64
     </p>
 
-    
+    <p>lbean xcomt qogzf yicmc ejiry adnko xskmp gmsfm jydpp sepoy ctyxf qonfv qbmod dwv</p>
+
+    <form id="passForm">
+      <label>password</label>
+      <input type="text" id="pass" required>
+      <input type="submit" value="check">
+    </form>
+
+    <h2 id="hadiah" style="display:none;">Congcrats you got a dollar as a prize yeyyyyyy</h2>
+    <p id="salah" style="display:none; color:red;">Salah, cuba lagi.</p>
   </div>
 
   <script>
+    const HASH = "314759afb3b1c685eb8d4ebee4ae88e39fec194cf0224c7d03685d91469e0865";
+
+    async function sha256(teks) {
+      const data = new TextEncoder().encode(teks);
+      const buf = await crypto.subtle.digest("SHA-256", data);
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
     document.getElementById("borang").addEventListener("submit", function (e) {
       e.preventDefault();
       const name = document.getElementById("name").value;
       document.getElementById("hasil").textContent = "so your name is " + name;
       document.getElementById("kandungan").style.display = "block";
+    });
+
+    document.getElementById("passForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      // buang ruang kosong & abaikan huruf besar/kecil
+      const input = document.getElementById("pass").value.replace(/\s+/g, "").toLowerCase();
+      const betul = (await sha256(input)) === HASH;
+      document.getElementById("hadiah").style.display = betul ? "block" : "none";
+      document.getElementById("salah").style.display = betul ? "none" : "block";
     });
   </script>
 </body>
