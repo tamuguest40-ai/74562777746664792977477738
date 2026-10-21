@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Borang</title>
+</head>
+<body>
+  <form id="borang">
+    <label>name</label>
+    <input type="text" id="name" required>
+    <input type="submit" value="you sure to submit?"> <br>
+    <label>don't care what the submit button say</label>
+  </form>
+
+  <p id="hasil"></p>
+
+  <div id="kandungan" style="display:none;">
+    <img src="Try decode me.png" alt="try to decode me" style="max-width:500px; width:100%;"><br>
+    <a href="gambar.jpg" download>Download gambar</a>
+
+    <p>
+      Hint:<br>
+      Morse code<br>
+      Ascii85<br>
+      Base64
+    </p>
+
+    
+  </div>
+
+  <script>
+    document.getElementById("borang").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      document.getElementById("hasil").textContent = "so your name is " + name;
+      document.getElementById("kandungan").style.display = "block";
+    });
+  </script>
+</body>
+</html>
